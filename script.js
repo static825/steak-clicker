@@ -17,11 +17,11 @@ steak.addEventListener("mouseleave", () => {
 });
 
 steak.addEventListener("click", () => {
-    clickOffset -= 0.08;
+    clickOffset -= 0.2;
 });
 
 function gameLoop() {
-    const targetScale = hovered ? 1.15 : 1;
+    const targetScale = hovered ? 1.20 : 1;
 
     clickOffset = lerp(clickOffset, 0, 0.3);
     currentScale = lerp(currentScale, targetScale + clickOffset, 0.3);
