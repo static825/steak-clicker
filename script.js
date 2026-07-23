@@ -18,7 +18,7 @@ steak.addEventListener("mouseleave", () => {
 });
 
 steak.addEventListener("click", () => {
-    currentScale -= 0.18;
+    currentScale -= 0.1;
 });
 
 function gameLoop(now) {
@@ -26,7 +26,7 @@ function gameLoop(now) {
     const dt = (now - lastTime) / 1000;
     lastTime = now;
 
-    const targetScale = hovered ? 1.15 : 1;
+    const targetScale = hovered ? 1.2 : 1;
 
     // Frame-rate independent smoothing
     const smoothness = 14;
