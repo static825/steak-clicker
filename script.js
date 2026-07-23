@@ -18,7 +18,7 @@ steak.addEventListener("mouseleave", () => {
 });
 
 steak.addEventListener("click", () => {
-    currentScale -= 0.05;
+    currentScale -= 0.1;
 });
 
 function gameLoop(now) {
