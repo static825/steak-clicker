@@ -1,83 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Steak Clicker</title>
+<script>
+const steak = document.getElementById("steak");
 
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            overflow: hidden;
-            background: repeating-linear-gradient(
-                90deg,
-                #260b12 0px,
-                #260b12 35px,
-                #321018 35px,
-                #321018 70px
-            );
-            font-family: "Courier New", monospace;
-        }
+let currentScale = 1;
+let targetScale = 1;
+let hovered = false;
 
-        .container {
-            display: flex;
-            width: 100vw;
-            height: 100vh;
-        }
+function lerp(a, b, t) {
+    return a + (b - a) * t;
+}
 
-        .game {
-            width: 75%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+steak.addEventListener("mouseenter", () => {
+    hovered = true;
+});
 
-        .shop {
-            width: 25%;
-            background: rgba(0, 0, 0, 0.25);
-            border-left: 4px solid #1b070b;
-            box-sizing: border-box;
-        }
+steak.addEventListener("mouseleave", () => {
+    hovered = false;
+});
 
-        .shop h1 {
-            margin: 20px 0;
-            text-align: center;
-            color: white;
-            font-size: 32px;
-            letter-spacing: 2px;
-        }
+steak.addEventListener("click", () => {
+    targetScale -= 0.1;
+});
 
-        #steak {
-            width: 256px;
-            image-rendering: pixelated;
-            cursor: pointer;
-            user-select: none;
-        }
+function gameLoop() {
+    // Hover target
+    if (hovered) {
+        targetScale = lerp(targetScale, 1.5, 0.3);
+    } else {
+        targetScale = lerp(targetScale, 1, 0.3);
+    }
 
-        #steak:hover {
-            transform: scale(1.03);
-        }
+    // Smoothly animate the actual scale
+    currentScale = lerp(currentScale, targetScale, 0.3);
 
-        #steak:active {
-            transform: scale(0.97);
-        }
-    </style>
-</head>
+    steak.style.transform = `scale(${currentScale})`;
 
-<body>
+    requestAnimationFrame(gameLoop);
+}
 
-<div class="container">
-
-    <div class="game">
-        <img id="steak" src="textures/steak.png" alt="Steak">
-    </div>
-
-    <div class="shop">
-        <h1>SHOP</h1>
-    </div>
-
-</div>
-
-</body>
-</html>
+gameLoop();
+</script>
