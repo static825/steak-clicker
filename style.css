@@ -46,4 +46,5 @@ body {
     user-select: none;
     cursor: pointer;
     transform-origin: center;
+    transition: transform 0.12s cubic-bezier(.22, .61, .36, 1);
 }
