@@ -1,41 +1,29 @@
-<script>
-const steak = document.getElementById("steak");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Steak Clicker</title>
 
-let currentScale = 1;
-let targetScale = 1;
-let hovered = false;
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
 
-function lerp(a, b, t) {
-    return a + (b - a) * t;
-}
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-steak.addEventListener("mouseenter", () => {
-    hovered = true;
-});
+<div class="container">
+    <div class="game">
+        <img id="steak" src="textures/steak.png" alt="Steak">
+    </div>
 
-steak.addEventListener("mouseleave", () => {
-    hovered = false;
-});
+    <div class="shop">
+        <h1>SHOP</h1>
+    </div>
+</div>
 
-steak.addEventListener("click", () => {
-    targetScale -= 0.1;
-});
+<script src="script.js"></script>
 
-function gameLoop() {
-    // Hover target
-    if (hovered) {
-        targetScale = lerp(targetScale, 1.5, 0.3);
-    } else {
-        targetScale = lerp(targetScale, 1, 0.3);
-    }
-
-    // Smoothly animate the actual scale
-    currentScale = lerp(currentScale, targetScale, 0.3);
-
-    steak.style.transform = `scale(${currentScale})`;
-
-    requestAnimationFrame(gameLoop);
-}
-
-gameLoop();
-</script>
+</body>
+</html>
