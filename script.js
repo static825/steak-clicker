@@ -1,12 +1,7 @@
 const steak = document.getElementById("steak");
 
-let currentScale = 1;
-let clickOffset = 0;
 let hovered = false;
-
-function lerp(a, b, t) {
-    return a + (b - a) * t;
-}
+let clickScale = 1;
 
 steak.addEventListener("mouseenter", () => {
     hovered = true;
@@ -17,16 +12,20 @@ steak.addEventListener("mouseleave", () => {
 });
 
 steak.addEventListener("click", () => {
-    clickOffset -= 0.5;
+    clickScale -= 0.18;
+    updateScale();
 });
 
+function updateScale() {
+    const hoverScale = hovered ? 1.15 : 1;
+    steak.style.transform = `scale(${hoverScale * clickScale})`;
+}
+
 function gameLoop() {
-    const targetScale = hovered ? 1.20 : 1;
+    // Recover from click squash
+    clickScale += (1 - clickScale) * 0.35;
 
-    clickOffset = lerp(clickOffset, 0, 0.3);
-    currentScale = lerp(currentScale, targetScale + clickOffset, 0.3);
-
-    steak.style.transform = `scale(${currentScale})`;
+    updateScale();
 
     requestAnimationFrame(gameLoop);
 }
