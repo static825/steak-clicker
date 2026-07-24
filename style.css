@@ -47,3 +47,25 @@ body {
     cursor: pointer;
     transform-origin: center;
 }
+
+.game {
+    position: relative;
+}
+
+.floating-text {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+
+    color: #ffffff;
+
+    text-shadow:
+        3px 3px 0 rgba(0, 0, 0, 0.45);
+
+    opacity: 1;
+}
