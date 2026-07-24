@@ -42,14 +42,18 @@ window.addEventListener("mouseup", (e) => {
 
     mouseDown = false;
 
-    // Award point here
+    // TODO: Add your steak counter here
     console.log("+1 Steak");
 
-    createFloatingText(mouseX, mouseY);
+    const rect = game.getBoundingClientRect();
+
+    createFloatingText(
+        e.clientX - rect.left,
+        e.clientY - rect.top
+    );
 });
 
 function createFloatingText(x, y) {
-
     const div = document.createElement("div");
 
     div.className = "floating-text";
@@ -59,14 +63,13 @@ function createFloatingText(x, y) {
 
     floatingTexts.push({
         element: div,
-        x: x,
-        y: y,
+        x: x + (Math.random() * 12 - 6),
+        y: y + (Math.random() * 8 - 4),
         opacity: 1
     });
 }
 
 function gameLoop(now) {
-
     const dt = (now - lastTime) / 1000;
     lastTime = now;
 
@@ -86,11 +89,10 @@ function gameLoop(now) {
     steak.style.transform = `scale(${currentScale})`;
 
     for (let i = floatingTexts.length - 1; i >= 0; i--) {
-
         const text = floatingTexts[i];
 
-        text.y -= 70 * dt;
-        text.opacity -= 2 * dt;
+        text.y -= 35 * dt;
+        text.opacity -= 1 * dt;
 
         text.element.style.left = `${text.x}px`;
         text.element.style.top = `${text.y}px`;
