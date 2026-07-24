@@ -56,7 +56,7 @@ window.addEventListener("mouseup", (e) => {
 
     createFloatingText(
         e.clientX - rect.left,
-        e.clientY - rect.top - 40
+        e.clientY - rect.top - 20
     );
 });
 
@@ -91,7 +91,7 @@ function gameLoop(now) {
         targetScale = 1.2;
 
     if (hovered && mouseDown)
-        targetScale = 0.8;
+        targetScale = 1.1;
 
     currentScale = lerp(currentScale, targetScale, t);
 
