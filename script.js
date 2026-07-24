@@ -1,14 +1,14 @@
 const steak = document.getElementById("steak");
 const game = document.querySelector(".game");
 
-let currentScale = 1;
 let hovered = false;
 let mouseDown = false;
 
-let lastTime = performance.now();
-
+let currentScale = 1;
 let mouseX = 0;
 let mouseY = 0;
+
+let lastTime = performance.now();
 
 const floatingTexts = [];
 
@@ -18,6 +18,7 @@ function lerp(a, b, t) {
 
 game.addEventListener("mousemove", (e) => {
     const rect = game.getBoundingClientRect();
+
     mouseX = e.clientX - rect.left;
     mouseY = e.clientY - rect.top;
 });
@@ -30,20 +31,25 @@ steak.addEventListener("mouseleave", () => {
     hovered = false;
 });
 
-steak.addEventListener("mousedown", () => {
-    mouseDown = true;
+steak.addEventListener("mousedown", (e) => {
+    if (e.button !== 0) return;
 
-    // TODO: Add steak here
+    mouseDown = true;
+});
+
+window.addEventListener("mouseup", (e) => {
+    if (!mouseDown) return;
+
+    mouseDown = false;
+
+    // Award point here
     console.log("+1 Steak");
 
     createFloatingText(mouseX, mouseY);
 });
 
-window.addEventListener("mouseup", () => {
-    mouseDown = false;
-});
-
 function createFloatingText(x, y) {
+
     const div = document.createElement("div");
 
     div.className = "floating-text";
@@ -53,9 +59,9 @@ function createFloatingText(x, y) {
 
     floatingTexts.push({
         element: div,
-        x,
-        y,
-        alpha: 1
+        x: x,
+        y: y,
+        opacity: 1
     });
 }
 
@@ -67,14 +73,13 @@ function gameLoop(now) {
     const smoothness = 14;
     const t = 1 - Math.exp(-smoothness * dt);
 
-    let targetScale;
+    let targetScale = 1;
 
-    if (mouseDown && hovered)
-        targetScale = 1.1;
-    else if (hovered)
+    if (hovered)
         targetScale = 1.2;
-    else
-        targetScale = 1;
+
+    if (hovered && mouseDown)
+        targetScale = 1.1;
 
     currentScale = lerp(currentScale, targetScale, t);
 
@@ -84,14 +89,14 @@ function gameLoop(now) {
 
         const text = floatingTexts[i];
 
-        text.y -= 80 * dt;
-        text.alpha -= 2 * dt;
+        text.y -= 70 * dt;
+        text.opacity -= 2 * dt;
 
         text.element.style.left = `${text.x}px`;
         text.element.style.top = `${text.y}px`;
-        text.element.style.opacity = text.alpha;
+        text.element.style.opacity = text.opacity;
 
-        if (text.alpha <= 0) {
+        if (text.opacity <= 0) {
             text.element.remove();
             floatingTexts.splice(i, 1);
         }
