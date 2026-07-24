@@ -42,25 +42,31 @@ body {
     font-size: 32px;
 }
 
+img {
+    user-select: none;
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
 #steak {
     width: 256px;
     image-rendering: pixelated;
     cursor: pointer;
     user-select: none;
     transform-origin: center;
-
-    /* Uncomment if you like the shadow */
-    /* filter: drop-shadow(3px 3px 0 rgba(0,0,0,.35)); */
 }
 
 .floating-text {
     position: absolute;
     transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+
     font-family: "Pixelify Sans", sans-serif;
     font-size: 32px;
     font-weight: bold;
+
     color: white;
-    pointer-events: none;
-    user-select: none;
-    text-shadow: 2px 2px 0 rgba(0,0,0,.4);
+
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
 }
