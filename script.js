@@ -56,7 +56,7 @@ window.addEventListener("mouseup", (e) => {
 
     createFloatingText(
         e.clientX - rect.left,
-        e.clientY - rect.top
+        e.clientY - rect.top - 40
     );
 });
 
@@ -91,7 +91,7 @@ function gameLoop(now) {
         targetScale = 1.2;
 
     if (hovered && mouseDown)
-        targetScale = 1.1;
+        targetScale = 0.8;
 
     currentScale = lerp(currentScale, targetScale, t);
 
@@ -101,7 +101,6 @@ function gameLoop(now) {
 
         const text = floatingTexts[i];
 
-        // Faster movement, slower fade
         text.y -= 50 * dt;
         text.opacity -= 0.5 * dt;
 
