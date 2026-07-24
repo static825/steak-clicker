@@ -46,6 +46,7 @@ body {
     user-select: none;
     cursor: pointer;
     transform-origin: center;
+    filter: drop-shadow(4px 4px 0 rgba(0,0,0,0.35));
 }
 
 .game {
