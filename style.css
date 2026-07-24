@@ -20,9 +20,12 @@ body {
 
 .game {
     width: 75%;
+    height: 100%;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 .shop {
@@ -37,36 +40,27 @@ body {
     text-align: center;
     color: white;
     font-size: 32px;
-    letter-spacing: 2px;
 }
 
 #steak {
     width: 256px;
     image-rendering: pixelated;
-    user-select: none;
     cursor: pointer;
+    user-select: none;
     transform-origin: center;
-    filter: drop-shadow(4px 4px 0 rgba(0,0,0,0.35));
-}
 
-.game {
-    position: relative;
+    /* Uncomment if you like the shadow */
+    /* filter: drop-shadow(3px 3px 0 rgba(0,0,0,.35)); */
 }
 
 .floating-text {
     position: absolute;
     transform: translate(-50%, -50%);
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
     pointer-events: none;
     user-select: none;
-
-    font-family: "Pixelify Sans", sans-serif;
-    font-size: 34px;
-    font-weight: 700;
-
-    color: #ffffff;
-
-    text-shadow:
-        3px 3px 0 rgba(0, 0, 0, 0.45);
-
-    opacity: 1;
+    text-shadow: 2px 2px 0 rgba(0,0,0,.4);
 }
