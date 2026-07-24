@@ -8,7 +8,7 @@ let currentScale = 1;
 
 let lastTime = performance.now();
 
-const floatingTexts = [];
+const counters = [];
 
 function lerp(a, b, t) {
     return a + (b - a) * t;
@@ -54,22 +54,22 @@ window.addEventListener("mouseup", (e) => {
 
     const rect = game.getBoundingClientRect();
 
-    createFloatingText(
+    createCounter(
         e.clientX - rect.left,
         e.clientY - rect.top - 20
     );
 });
 
-function createFloatingText(x, y) {
+function createCounter(x, y) {
 
     const div = document.createElement("div");
 
-    div.className = "floating-text";
+    div.className = "counter";
     div.textContent = "+1";
 
     game.appendChild(div);
 
-    floatingTexts.push({
+    counters.push({
         element: div,
         x: x + (Math.random() * 12 - 6),
         y: y + (Math.random() * 8 - 4),
@@ -97,20 +97,20 @@ function gameLoop(now) {
 
     steak.style.transform = `scale(${currentScale})`;
 
-    for (let i = floatingTexts.length - 1; i >= 0; i--) {
+    for (let i = counters.length - 1; i >= 0; i--) {
 
-        const text = floatingTexts[i];
+        const counter = counters[i];
 
-        text.y -= 50 * dt;
-        text.opacity -= 0.5 * dt;
+        counter.y -= 50 * dt;
+        counter.opacity -= 0.5 * dt;
 
-        text.element.style.left = `${text.x}px`;
-        text.element.style.top = `${text.y}px`;
-        text.element.style.opacity = text.opacity;
+        counter.element.style.left = `${counter.x}px`;
+        counter.element.style.top = `${counter.y}px`;
+        counter.element.style.opacity = counter.opacity;
 
-        if (text.opacity <= 0) {
-            text.element.remove();
-            floatingTexts.splice(i, 1);
+        if (counter.opacity <= 0) {
+            counter.element.remove();
+            counters.splice(i, 1);
         }
     }
 
