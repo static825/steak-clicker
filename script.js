@@ -5,8 +5,6 @@ let hovered = false;
 let mouseDown = false;
 
 let currentScale = 1;
-let mouseX = 0;
-let mouseY = 0;
 
 let lastTime = performance.now();
 
@@ -16,11 +14,14 @@ function lerp(a, b, t) {
     return a + (b - a) * t;
 }
 
-game.addEventListener("mousemove", (e) => {
-    const rect = game.getBoundingClientRect();
+steak.draggable = false;
 
-    mouseX = e.clientX - rect.left;
-    mouseY = e.clientY - rect.top;
+steak.addEventListener("dragstart", (e) => {
+    e.preventDefault();
+});
+
+steak.addEventListener("contextmenu", (e) => {
+    e.preventDefault();
 });
 
 steak.addEventListener("mouseenter", () => {
@@ -29,20 +30,26 @@ steak.addEventListener("mouseenter", () => {
 
 steak.addEventListener("mouseleave", () => {
     hovered = false;
+    mouseDown = false;
 });
 
 steak.addEventListener("mousedown", (e) => {
     if (e.button !== 0) return;
 
+    e.preventDefault();
     mouseDown = true;
 });
 
 window.addEventListener("mouseup", (e) => {
-    if (!mouseDown) return;
+
+    if (!mouseDown || !hovered) {
+        mouseDown = false;
+        return;
+    }
 
     mouseDown = false;
 
-    // TODO: Add your steak counter here
+    // TODO: Add steak counter here
     console.log("+1 Steak");
 
     const rect = game.getBoundingClientRect();
@@ -54,6 +61,7 @@ window.addEventListener("mouseup", (e) => {
 });
 
 function createFloatingText(x, y) {
+
     const div = document.createElement("div");
 
     div.className = "floating-text";
@@ -70,6 +78,7 @@ function createFloatingText(x, y) {
 }
 
 function gameLoop(now) {
+
     const dt = (now - lastTime) / 1000;
     lastTime = now;
 
@@ -89,10 +98,12 @@ function gameLoop(now) {
     steak.style.transform = `scale(${currentScale})`;
 
     for (let i = floatingTexts.length - 1; i >= 0; i--) {
+
         const text = floatingTexts[i];
 
-        text.y -= 35 * dt;
-        text.opacity -= 1 * dt;
+        // Faster movement, slower fade
+        text.y -= 50 * dt;
+        text.opacity -= 0.5 * dt;
 
         text.element.style.left = `${text.x}px`;
         text.element.style.top = `${text.y}px`;
